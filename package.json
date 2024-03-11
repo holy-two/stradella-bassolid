@@ -1,0 +1,22 @@
+{
+  "name": "stradella-bassolid",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "solid-js": "^1.8.15"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-plugin-solid": "^0.13.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4",
+    "vite-plugin-solid": "^2.10.1"
+  }
+}
