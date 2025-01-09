@@ -1,16 +1,15 @@
-import { createMemo, createSignal } from "solid-js"
-import createActionEffect from "./middleware/actionEffect"
-import { NOTE_OFF, NOTE_ON } from "./actionTypes/notes"
-import { NotesOwnProps } from "../shared"
+import { createSignal } from 'solid-js'
+import createActionEffect from './middleware/actionEffect'
+import { NOTE_OFF, NOTE_ON } from './actionTypes/notes'
+import { NotesOwnProps } from '../shared'
 
 export const [allNotes, setAllNotes] = createSignal<boolean[]>([])
 
 export function useAllNotesActions() {
-  const setNotes = setAllNotes
-  let actionEffect = createActionEffect()
+  const actionEffect = createActionEffect()
 
   const noteOn = (midiNote: number) => {
-    setNotes(notes => {
+    setAllNotes(notes => {
       notes[midiNote] = true
       return notes
     })
@@ -23,7 +22,7 @@ export function useAllNotesActions() {
   }
 
   const noteOff = (midiNote: number) => {
-    setNotes(notes => {
+    setAllNotes(notes => {
       notes[midiNote] = false
       return notes
     })
@@ -36,12 +35,12 @@ export function useAllNotesActions() {
   }
 
   return {
-    noteOn, noteOff
+    noteOn,
+    noteOff
   }
 }
 
 export function useAllNoteSelectors() {
-
   const isNoteOn = (noteNumber: number) => {
     const notes = allNotes()
     return !!notes[noteNumber]
@@ -53,27 +52,21 @@ export function useAllNoteSelectors() {
 }
 
 export function useAllNotesStore(props: NotesOwnProps) {
-  const { noteOff, noteOn } = useAllNotesActions()
+  const { noteOff: releaseNote, noteOn: triggerNote } = useAllNotesActions()
   const { isNoteOn } = useAllNoteSelectors()
   const { midiNote, midiNotes } = props
 
   const isOn = () => {
     if (Array.isArray(midiNotes)) {
-      return midiNotes.every(midiNote => isNoteOn(midiNote))
+      return midiNotes.every(isNoteOn)
     } else {
       return isNoteOn(midiNote!)
     }
   }
 
-  const triggerNote = (midiNote: number) => {
-    noteOn(midiNote)
-  }
-
-  const releaseNote = (midiNote: number) => {
-    noteOff(midiNote)
-  }
-
   return {
-    isOn, triggerNote, releaseNote
+    isOn,
+    triggerNote,
+    releaseNote
   }
 }

@@ -41,4 +41,5 @@ export const release = initialiseWebAudioIfUninitialised(
       usedSignalPath.midiNoteOff()
       delete activeNotes[midiNote]
     }
-  })
+  }
+)

@@ -9,12 +9,11 @@ export interface Action {
   }
 }
 
-export default function createActionEffect () {
+export default function createActionEffect() {
   return (action: Action) => {
     if (action.type === NOTE_ON) {
       trigger(action.payload.midiNote)
     } else if (action.type === NOTE_OFF) {
-      console.log(action)
       release(action.payload.midiNote)
     }
   }

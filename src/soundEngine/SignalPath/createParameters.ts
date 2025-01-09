@@ -1,6 +1,6 @@
 import Envelope from './Envelope'
 
-export default function createParameters () {
+export default function createParameters() {
   const filterEnvelope = new Envelope(1800)
   filterEnvelope.attack = 0.02
   filterEnvelope.decay = 0.6

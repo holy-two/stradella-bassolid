@@ -2,21 +2,18 @@ import { css } from '@emotion/css'
 import { NotesOwnProps } from '../../shared'
 import { useAllNotesStore } from '../../store'
 
-export interface ButtonProps extends NotesOwnProps {
-}
+export interface ButtonProps extends NotesOwnProps {}
 
 export default function Button(props: ButtonProps) {
   const { midiNote, midiNotes } = props
-  const {
-    isOn, releaseNote, triggerNote
-  } = useAllNotesStore(props)
+  const { isOn, releaseNote, triggerNote } = useAllNotesStore(props)
 
   const isChord = !!midiNotes
   const isMiddleC = midiNote === 48
 
   const trigger = () => {
     if (isChord) {
-      midiNotes.forEach(note => triggerNote(note))
+      midiNotes.forEach(triggerNote)
     } else {
       triggerNote(midiNote!)
     }
@@ -24,7 +21,7 @@ export default function Button(props: ButtonProps) {
 
   const release = () => {
     if (isChord) {
-      midiNotes.forEach(note => releaseNote(note))
+      midiNotes.forEach(releaseNote)
     } else {
       releaseNote(midiNote!)
     }
@@ -43,7 +40,8 @@ export default function Button(props: ButtonProps) {
     -webkit-tap-highlight-color: transparent;
     user-select: none;
 
-    &.isOn,&.isOn:hover {
+    &.isOn,
+    &.isOn:hover {
       transform: scale(0.95) translateY(4px);
     }
   `
